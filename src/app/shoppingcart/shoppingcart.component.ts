@@ -40,6 +40,7 @@ export class ShoppingcartComponent implements OnInit {
         quantity: 1,
         title: product.title,
         price: product.price,
+        image: product.thumbnail,
       });
     }
 

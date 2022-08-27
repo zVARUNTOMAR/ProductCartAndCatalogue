@@ -1,80 +1,64 @@
-<nav
-  style="
-    display: flex;
-    align-items: center;
-    color: white;
-    justify-content: space-between;
-    padding-left: 100px;
-    padding-right: 100px;
-  "
->
-  <p style="font-size: 1.2rem">FlipCart</p>
-  <a
-    href="#cart"
-    style="
-      border: 0;
-      background: transparent;
-      padding: 2px;
-      cursor: pointer;
-      color: white;
-    "
-  >
-    <span class="material-symbols-outlined"> shopping_cart </span>
-  </a>
-</nav>
-
 <div class="container">
-  <div class="main-card" *ngFor="let p of products">
-    <img src="{{ p.thumbnail }}" alt="" />
-    <h5>{{ p.title }}</h5>
-    <h6 class="desc">{{ p.description.substring(0, 50) }}</h6>
-    <p class="price">${{ p.price }}.00</p>
-    <button
-      class="primary btn"
-      (click)="addProduct(p.id - 1)"
-      *ngIf="!checkExist(p.id - 1)"
-    >
-      ADD TO CART
-    </button>
-    <button
-      class="secondary btn"
-      (click)="removeProduct(p.id - 1)"
-      *ngIf="checkExist(p.id - 1)"
-    >
-      REMOVE FROM CART
-    </button>
+  <div class="main-card-container">
+    <div class="main-card" *ngFor="let p of products">
+      <img src="{{ p.thumbnail }}" alt="" />
+      <h5>{{ p.title }}</h5>
+      <h6 class="desc">{{ p.description.substring(0, 45) }}</h6>
+      <p class="price">${{ p.price }}.00</p>
+      <button
+        class="primary btn"
+        (click)="addProduct(p.id - 1)"
+        *ngIf="!checkExist(p.id - 1)"
+      >
+        ADD TO CART
+      </button>
+      <button
+        class="secondary btn"
+        (click)="removeProduct(p.id - 1)"
+        *ngIf="checkExist(p.id - 1)"
+      >
+        REMOVE FROM CART
+      </button>
+    </div>
   </div>
 
-  <section id="cart">
+  <div id="cart">
     <div class="main-container-cart">
       <h3 class="title">CART</h3>
       <div class="card-container">
-        <div class="card-cart" *ngFor="let p of productsinCart">
-          <p>{{ p.title }}</p>
-          <hr />
-          <p>Price : ${{ p.price }}.00</p>
-          <hr />
-          <p>Quantity : {{ p.quantity }}</p>
-          <hr />
-          <p>Total : ${{ p.quantity * p.price }}.00</p>
-          <div class="button-container">
-            <button
-              class="small-btn btn btn-add"
-              (click)="increaseProduct(p.id)"
-            >
-              +
-            </button>
-            <input type="text" disabled value="{{ p.quantity }}" />
-            <button
-              class="small-btn btn btn-minus"
-              (click)="decreaseProduct(p.id)"
-            >
-              -
-            </button>
+        <div class="card-cart flex" *ngFor="let p of productsinCart">
+          <div class="card-details">
+            <p>{{ p.title }}</p>
+            <p class="small disabled">Price : ${{ p.price }}.00</p>
+            <p class="small disabled">Quantity : {{ p.quantity }}</p>
+            <p class="small disabled">
+              Total :
+              <span style="font-weight: bold"
+                >${{ p.quantity * p.price }}.00</span
+              >
+            </p>
+            <div class="button-container">
+              <button
+                class="small-btn btn btn-add"
+                (click)="increaseProduct(p.id)"
+              >
+                +
+              </button>
+              <input type="text" disabled value="{{ p.quantity }}" />
+              <button
+                class="small-btn btn btn-minus"
+                (click)="decreaseProduct(p.id)"
+              >
+                -
+              </button>
+            </div>
+          </div>
+          <div class="image-container">
+            <img src="{{ p.image }}" alt="image" />
           </div>
         </div>
       </div>
       <h3 style="margin-top: 30px">Total : ${{ totalAmount }}.00</h3>
     </div>
-  </section>
+  </div>
 </div>

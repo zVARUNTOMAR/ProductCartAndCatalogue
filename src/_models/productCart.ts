@@ -3,4 +3,5 @@ export interface ProductCart {
   price: number;
   quantity: number;
   title: string;
+  image: string;
 }
